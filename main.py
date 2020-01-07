@@ -38,8 +38,9 @@ def main():
     global args, best_prec1, use_gpu
     args = parser.parse_args()
 
-    args.resume = os.path.join('./models', args.resume)  ####################################################################################################################
+    args.resume = os.path.join('./models', args.resume)
 
+    # Using GPUs if available
     use_gpu = torch.cuda.is_available()
 
     # define dataset
@@ -51,6 +52,7 @@ def main():
     model = Model(args.image_size[0],args.image_size[1], backbone)
     print("Model Created")
     
+    # Optimizer for backprop
     optimizer = torch.optim.Adam(model.parameters(),
                                 lr=args.lr)
 
@@ -68,6 +70,8 @@ def main():
     state['LABEL_TO_CATEGORY_DICT'] = {v: k for k, v in state['CATEGORY_TO_LABEL_DICT'].items()}
 
     engine = Engine(state)
+
+    # Starting the learning process
     engine.learning(model, train_dataset, val_dataset, optimizer)
 
 
