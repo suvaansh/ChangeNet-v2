@@ -6,6 +6,8 @@ from tqdm import tqdm
 
 
 class Warp(object):
+    """ Warp any image to a predefined image size"""
+
     def __init__(self, size, interpolation=Image.ANTIALIAS):
         self.height = int(size[1])
         self.width = int(size[0])
@@ -21,7 +23,7 @@ class Warp(object):
 class AveragePrecisionMeter(object):
     """ 
     The AveragePrecisionMeter measures the average precision per class as well as the F1-scores.
-    The APMeter is designed to operate on `NxK` Tensors `output` and
+    The AveragePrecisionMeter is designed to operate on `NxK` Tensors `output` and
     `target`, and optionally a `Nx1` Tensor weight where (1) the `output`
     contains model output scores for `N` examples and `K` classes that ought to
     be higher when the model is more convinced that the example should be
@@ -44,11 +46,10 @@ class AveragePrecisionMeter(object):
         self.weights = torch.FloatTensor(torch.FloatStorage())
 
     def _2d_to_onehot(self, x):
-
+        """ Converts 2d array to 3d one hot matrix"""
         return (torch.arange(10).cuda().long() == x[...,None].long()).int()
 
     def flatten(self, x):
-        # y = x.permute(0,2,3,1)
         return x.reshape(-1, x.size(-1))
 
     def add(self, thresh_pred, output, target, weight=None):
@@ -180,10 +181,8 @@ class AveragePrecisionMeter(object):
 
         # compute average precision for each class
         for k in range(self.scores.size(1)):
-            # print(self.scores.cpu().numpy(), k)
             # sort scores
             scores = self.scores[:, k]
-            # print(scores)
             targets = self.targets[:, k]
             _, sortind = torch.sort(scores, 0, True)
             truth = targets[sortind]
@@ -207,15 +206,16 @@ class AveragePrecisionMeter(object):
 
     def value_metrics(self):
         """
-            Returns the model's average precision for each class
+            Returns the model's TPs, TNs, FPs and FNs for each class
             Return:
-                ap (FloatTensor): 1xK tensor, with avg precision for each class k
+                TP (FloatTensor): 1xK tensor, with True Positives for each class k
+                FP (FloatTensor): 1xK tensor, with False Positives for each class k
+                TN (FloatTensor): 1xK tensor, with True Negatives for each class k
+                FN (FloatTensor): 1xK tensor, with False Negatives for each class k
         """
 
         if self.predictions.numel() == 0:
             return 0
-
-        # self.predictions = torch.unsqueeze(self.predictions[:,0], dim=1)
 
         print(self.predictions.size())
 
@@ -230,18 +230,6 @@ class AveragePrecisionMeter(object):
         f1 = torch.zeros(self.predictions.size(1))
 
 
-        # TP_obj = torch.zeros(self.predictions.size(1))
-        # FP_obj = torch.zeros(self.predictions.size(1))
-        # TN_obj = torch.zeros(self.predictions.size(1))
-        # FN_obj = torch.zeros(self.predictions.size(1))
-
-
-        # precision_obj = torch.zeros(self.predictions.size(1))
-        # recall_obj = torch.zeros(self.predictions.size(1))
-        # f1_obj = torch.zeros(self.predictions.size(1))
-
-        # TAR_obj = torch.zeros(self.predictions.size(1))
-
         for k in range(self.predictions.size(1)):
             
             predictions = (self.predictions[:, k]).byte()
@@ -251,82 +239,9 @@ class AveragePrecisionMeter(object):
             one_minus_tar = (1 - targets)
 
             TP[k] = torch.mul(predictions, targets).sum() #TP
-            # FP[k] = predictions.sum() - torch.mul(predictions, targets).sum() #FP
             FP[k] = torch.mul(predictions, one_minus_tar).sum() #FP
             TN[k] = torch.mul(one_minus_pred, one_minus_tar).sum() #TN
-            # FN[k] = one_minus_pred.sum() - torch.mul(one_minus_pred, one_minus_tar).sum() #FN
             FN[k] = torch.mul(one_minus_pred, targets).sum() #FN
-
-
-        # for k in range(self.predictions.size(1)):
-
-        #     predictions = (self.predictions[:, k]).float()
-
-        #     targets = (self.targets[:, k]).float()
-        #     one_minus_pred = (1 - predictions)
-            
-        #     one_minus_tar = (1 - targets)
-
-        #     tp_obj = torch.mul(predictions, targets) #TP
-        #     tp_obj = tp_obj.reshape(-1,49152)
-        #     tp_obj = tp_obj.sum(1)
-
-        #     fp_obj = torch.mul(predictions, one_minus_tar) #FP
-        #     fp_obj = fp_obj.reshape(-1,49152)
-        #     fp_obj = fp_obj.sum(1)
-
-        #     tn_obj = torch.mul(one_minus_pred, one_minus_tar) #TN
-        #     tn_obj = tn_obj.reshape(-1,49152)
-        #     tn_obj = tn_obj.sum(1)
-
-        #     fn_obj = torch.mul(one_minus_pred, targets) #FN
-        #     fn_obj = fn_obj.reshape(-1,49152)
-        #     fn_obj = fn_obj.sum(1)
-
-        #     pred_obj = predictions.reshape(-1,49152).sum(1) > 0.
-        #     tar_obj = targets.reshape(-1,49152).sum(1) > 0.
-
-        #     TAR_obj[k] = tar_obj.sum()
-
-        #     one_minus_pred_obj = one_minus_pred.reshape(-1,49152).sum(1) > 0.
-        #     one_minus_tar_obj = one_minus_tar.reshape(-1,49152).sum(1) > 0.
-
-
-        #     iou = tp_obj.float() / (tp_obj + fp_obj + fn_obj).float()
-
-        #     iou[iou != iou] = 0
-
-        #     TP_obj[k] = (iou >= 0.1).sum()
-        #     FP_obj[k] = torch.mul((iou < 0.1), pred_obj).sum()
-
-        #     FN_obj[k] = torch.mul(one_minus_pred_obj, tar_obj).sum()
-
-        # # print(TP_obj, FP_obj, FN_obj)
-
-        # prec1 = TP_obj / ((TP_obj + FP_obj))
-        # rec1 = TP_obj / ((TP_obj + FN_obj)) 
-        # f11 = (2 * prec1 * rec1) / (prec1 + rec1)
-
-        # # print(prec1, rec1, f11)
-
-        # # print(TAR_obj)
-
-        # IOU = TP / (TP + FP + FN)
-
-        # Accuracy = (TP[1:] + TN[1:]) / (TP[1:] + TN[1:] + FP[1:] + FN[1:])
-
-        # print(IOU)
-
-        # print(IOU[1:].mean())
-
-        # print(Accuracy, Accuracy.mean())
-
-        # print(IOU[1:], TAR_obj[1:], TAR_obj[1:].sum())
-
-        # print(torch.mul(IOU[1:], TAR_obj[1:]))
-
-        # print((torch.mul(IOU,TAR_obj)[1:] / (TAR_obj[1:]).sum()), (torch.mul(IOU,TAR_obj)[1:] / (TAR_obj[1:]).sum()).sum())
-
 
 
         cm = torch.einsum('bi,bj->bij', self.targets.float(), self.predictions.float()).sum(0)
@@ -343,6 +258,7 @@ class AveragePrecisionMeter(object):
         # zero division.
         denominator = torch.where((denominator > 0), denominator, torch.ones_like(denominator))
 
+        # Calculating Intersection Over Union
         iou = (cm_diag / denominator)
 
         # Freq weight IoU
@@ -350,7 +266,6 @@ class AveragePrecisionMeter(object):
 
         print("IOU = ", iou.mean())
         print("F_IOU = ", fiou)
-
         print("Accuracy = ", (cm_diag.sum() / cm.sum()))
 
         return TP, FP, TN, FN

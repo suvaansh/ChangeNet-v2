@@ -9,7 +9,14 @@ import numpy as np
 
 class VL_CMU_CD(torch.utils.data.Dataset):
     def __init__(self, root, set, transform=None, target_transform=None):
-        
+        """
+            Args:
+                root (string): root directory for dataset
+                set (string): training or test set
+                transform (torchvision.transforms): transforms to be applied to dataset
+                target_transform (torchvision.transforms): transforms to be applied to labels
+        """
+
         self.root = root
         self.path_images = root
         self.set = set
@@ -22,9 +29,9 @@ class VL_CMU_CD(torch.utils.data.Dataset):
         print(file_csv)
 
         self.images = self.read_object_labels_csv(file_csv)
-#         print(len(self.images))
 
     def __getitem__(self, index):
+
         first, second, label, mask = self.images[index]
 #         print(first, second, label)
         
@@ -33,38 +40,46 @@ class VL_CMU_CD(torch.utils.data.Dataset):
         label_path = os.path.join(self.path_images, 'GT_MULTICLASS', label)
         mask_path = os.path.join(self.path_images, 'mask', mask)
 
+        # Loading image and labels(segmentation masks)
         
         img1 = np.array(Image.open(first_path).resize((256,192), Image.ANTIALIAS))
-        img1 = img1/255.0
+        img1 = img1/255.0 # Normalise image
 
         img2 = np.array(Image.open(second_path).resize((256,192), Image.ANTIALIAS))
         img2 = img2/255.0
 
         target = np.load(label_path)
         
-        # target = np.array(Image.open(label_path).resize((256,192), Image.ANTIALIAS))
-        # target = target/255.0
-        # print('target', target.shape)
-        # target = np.expand_dims((target>0.2).astype(np.float32), axis=2)
 
         mask_img = np.array(Image.open(mask_path).resize((256,192), Image.ANTIALIAS))
         mask_img = mask_img/255.0
-        # print('mask', mask_img.shape)
+
         mask_img = np.expand_dims((mask_img>0.2).astype(np.float32), axis=2)
 
-
+        # Applying tranforms to images
         if self.transform is not None:
             img1 = self.transform(img1)
             img2 = self.transform(img2)
-            
+        
+        # Applying transforms to labels
         if self.target_transform is not None:
             target = self.target_transform(target)
             mask_img = self.target_transform(mask_img)
 
-        # print(img1.shape, img2.shape, target.shape)
+        
         return (img1, first_path), (img2, second_path), (target, label_path), (mask_img, mask_path)
 
     def read_object_labels_csv(self, file, header=True):
+        """
+            Reads data csv file and create returns list of datapoints
+            
+            Args:
+                file (string): CSV file name
+                header (bool): read first row in csv as datapoint or not
+
+            Returns:
+                images (list): A list of tuples containing input-images & label file-names 
+        """
         images = []
         num_categories = 0
         print('[dataset] read', file)
@@ -87,4 +102,5 @@ class VL_CMU_CD(torch.utils.data.Dataset):
         return images
     
     def __len__(self):
+        """Returns total number of examples in dataset"""
         return len(self.images)

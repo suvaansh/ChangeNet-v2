@@ -91,6 +91,12 @@ class Model(nn.Module):
         return out
     
     def get_depths(self, n_size):
+        """ Calculates depth of correlation map using window size
+            Args:
+                n_size (int): Window size for correlation to determine depth of correlation map
+            Returns:
+                depth (int): depth of correlation map produced
+        """
         max_displacement = int(math.ceil(n_size/2.0))
         stride_2 = 2
         assert(stride_2 <= n_size)
@@ -98,6 +104,15 @@ class Model(nn.Module):
         return depth
     
     def get_module(self, n_size, n_conv, n_dconv, ch):
+        """
+            Args:
+                n_size (int): Window size for correlation to determine depth of correlation map
+                n_conv (int): Number of convolution layers in the module
+                n_dconv (int): Number of deconvolution layers in the module
+                ch (list): List of channels in each layer 
+            Returns:
+                Sequential module with n_conv convolutions and n_dconv deconvolutions
+        """
         depth = self.get_depths(n_size)
         assert(n_conv + n_dconv == len(ch))
         ch = [depth, *ch]
@@ -116,6 +131,15 @@ class Model(nn.Module):
         return nn.Sequential(*module)
     
     def correlation_layer(self, map1, map2, n_size, h, w):
+        """ Returns Correlation Map between map1 and map2 as well as its depth value
+            Args:
+                map1 (Tensor): Feature Map 1
+                map2 (Tensor): Feature Map 2
+                n_size (int): Window size for correlation to determine depth of correlation map
+                h (int): height of feature map
+                w (int): width of feature map
+        """
+
         HEIGHT = int(h)
         WIDTH = int(w)
 
@@ -130,7 +154,6 @@ class Model(nn.Module):
                 
                 padded_a = F.pad(map1, (0,abs(j),0,abs(i)), mode='constant', value=0)
 
-                
                 padded_b = F.pad(map2, (abs(j),0,abs(i),0), mode='constant', value=0)
 
                 m = padded_a * padded_b
