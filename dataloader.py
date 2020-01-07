@@ -7,7 +7,7 @@ from PIL import Image
 import numpy as np
 
 
-class GSV(torch.utils.data.Dataset):
+class VL_CMU_CD(torch.utils.data.Dataset):
     def __init__(self, root, set, transform=None, target_transform=None):
         
         self.root = root

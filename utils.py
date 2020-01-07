@@ -19,8 +19,8 @@ class Warp(object):
                                                                                                 interpolation=self.interpolation)
 
 class AveragePrecisionMeter(object):
-    """
-    The APMeter measures the average precision per class.
+    """ 
+    The AveragePrecisionMeter measures the average precision per class as well as the F1-scores.
     The APMeter is designed to operate on `NxK` Tensors `output` and
     `target`, and optionally a `Nx1` Tensor weight where (1) the `output`
     contains model output scores for `N` examples and `K` classes that ought to
@@ -52,33 +52,27 @@ class AveragePrecisionMeter(object):
         return x.reshape(-1, x.size(-1))
 
     def add(self, thresh_pred, output, target, weight=None):
-        """Add a new observation
-        Args:
-            output (Tensor): NxK tensor that for each of the N examples
-                indicates the probability of the example belonging to each of
-                the K classes, according to the model. The probabilities should
-                sum to one over all classes
-            target (Tensor): binary NxK tensort that encodes which of the K
-                classes are associated with the N-th input
-                (eg: a row [0, 1, 0, 1] indicates that the example is
-                associated with classes 2 and 4)
-            weight (optional, Tensor): Nx1 tensor representing the weight for
-                each example (each weight > 0)
+        """ Add a new observation
+            Args:
+                thresh_pred (Tensor): NxHxW tensor that for each of the N 
+                    examples indicates the predicted class at each pixel location
+                    according to the model.
+                output (Tensor): NxHxWxK tensor that for each of the N examples
+                    indicates the probability of the each pixel of example belonging to each of
+                    the K classes, according to the model. The probabilities should
+                    sum to one over all classes in 4th dimension.
+                target (Tensor): binary NxHxW tensort that encodes which of the K
+                    classes is associated with the every pixel in N-th input.
+                weight (optional, Tensor): Nx1 tensor representing the weight for
+                    each example (each weight > 0)
         """
 
-        # print(thresh_pred.shape, output.shape, target.shape)
 
         thresh_pred = self.flatten(self._2d_to_onehot(thresh_pred))
 
-        # thresh_pred = torch.stack((thresh_pred, 1-thresh_pred), dim=1)
-
         output = self.flatten(output.permute(0,2,3,1))
 
-        # output = torch.stack((output, 1-output), dim=1)
-
         target = self.flatten(self._2d_to_onehot(target.squeeze(1)))
-
-        # target = torch.stack((target, 1-target), dim=1)
 
         if not torch.is_tensor(output):
             output = torch.from_numpy(output)
@@ -166,9 +160,11 @@ class AveragePrecisionMeter(object):
         self.targets.narrow(0, offset, target.size(0)).copy_(target)
 
     def value(self):
-        """Returns the model's average precision for each class
-        Return:
-            ap (FloatTensor): 1xK tensor, with avg precision for each class k
+        """
+            Returns the model's average precision for each class
+            
+            Return:
+                ap (FloatTensor): 1xK tensor, with avg precision for each class k
         """
 
         if self.scores.numel() == 0:
@@ -210,9 +206,10 @@ class AveragePrecisionMeter(object):
         return ap
 
     def value_metrics(self):
-        """Returns the model's average precision for each class
-        Return:
-            ap (FloatTensor): 1xK tensor, with avg precision for each class k
+        """
+            Returns the model's average precision for each class
+            Return:
+                ap (FloatTensor): 1xK tensor, with avg precision for each class k
         """
 
         if self.predictions.numel() == 0:
@@ -333,19 +330,13 @@ class AveragePrecisionMeter(object):
 
 
         cm = torch.einsum('bi,bj->bij', self.targets.float(), self.predictions.float()).sum(0)
-        # print(cm.shape, cm.long())
-
-        # cm = cm[1:,1:]
-        # print(cm.long())
 
         sum_over_row = cm.sum(0)
-        # tf.to_float(tf.reduce_sum(total_cm, 0))
+
         sum_over_col = cm.sum(1)
-        # tf.to_float(tf.reduce_sum(total_cm, 1))
+
         cm_diag = torch.diag(cm)
 
-        # print(sum_over_row, sum_over_col, cm_diag)
-        # tf.to_float(tf.diag_part(total_cm))
         denominator = sum_over_row + sum_over_col - cm_diag
 
         # If the value of the denominator is 0, set it to 1 to avoid
@@ -353,12 +344,9 @@ class AveragePrecisionMeter(object):
         denominator = torch.where((denominator > 0), denominator, torch.ones_like(denominator))
 
         iou = (cm_diag / denominator)
-        # return tf.reduce_mean(iou, name=name)
+
         # Freq weight IoU
         fiou = torch.mul(sum_over_row, iou).sum() / cm.sum().float()
-
-        # tf.div(tf.reduce_sum(tf.multiply(sum_over_row, iou)), tf.to_float(tf.reduce_sum(total_cm)), name=name)
-        # print(iou, iou.mean(), fiou)
 
         print("IOU = ", iou.mean())
         print("F_IOU = ", fiou)

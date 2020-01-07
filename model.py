@@ -31,7 +31,6 @@ class Model(nn.Module):
         self.module3 = (self.get_module(n_size = self.n_size[2], n_conv = 3, n_dconv = 2, ch = [64, 64, 64, 64, 64]))
         self.module4 = (self.get_module(n_size = self.n_size[3], n_conv = 3, n_dconv = 3, ch = [64, 64, 64, 64, 64, 64]))
         self.module5 = (self.get_module(n_size = self.n_size[4], n_conv = 3, n_dconv = 4, ch = [64, 64, 64, 64, 64, 64, 64]))
-        # self.module6 = self.get_module(n_size = self.n_size[5], n_conv = 1, n_dconv = 2, ch = [2048,64,32])
         
         
         self.ct_conv1 = (nn.Sequential(
@@ -74,16 +73,13 @@ class Model(nn.Module):
         layer5_2 = self.stage1_5(layer4_2)
         corr5, depth5 = self.correlation_layer(layer5_1, layer5_2, self.n_size[4], int(self.height/16), int(self.width/16))
         
-        # layer6_1 = self.stage1_6(layer5_1)
-        # layer6_2 = self.stage1_6(layer5_2)
-        # corr6, depth6 = self.correlation_layer(layer6_1, layer6_2, self.n_size[5], int(self.height/4), int(self.width/4))
-        
+
         l_mod1 = self.module1(corr1)
         l_mod2 = self.module2(corr2)
         l_mod3 = self.module3(corr3)
         l_mod4 = self.module4(corr4)
         l_mod5 = self.module5(corr5)
-        # l_mod6 = self.module6(corr6)
+
         
         ct_layer = torch.cat((l_mod1, l_mod2, l_mod3, l_mod4, l_mod5), dim=1)
         
@@ -111,12 +107,12 @@ class Model(nn.Module):
             if i < n_dconv:
                 module.append(nn.ConvTranspose2d(ch[i],ch[i+1], kernel_size=2, stride=2))
                 module.append(nn.BatchNorm2d(ch[i+1]))
-#                 print("dconv", ch[i], ch[i+1])
+
             else:
                 module.append(nn.Conv2d(ch[i], ch[i+1], kernel_size=5, stride=1, padding=2))
                 module.append(nn.BatchNorm2d(ch[i+1]))
                 module.append(nn.LeakyReLU())
-#                 print("conv", ch[i], ch[i+1])
+
         return nn.Sequential(*module)
     
     def correlation_layer(self, map1, map2, n_size, h, w):
@@ -127,32 +123,26 @@ class Model(nn.Module):
         stride_2 = 2
         assert(stride_2 <= n_size)
         depth = int(math.floor(((2.0 * max_displacement) + 1) / stride_2) ** 2)
-#         print(depth)
         out = []
 
         for i in range(-max_displacement+1, max_displacement, stride_2):
             for j in range(-max_displacement+1, max_displacement, stride_2):
                 
                 padded_a = F.pad(map1, (0,abs(j),0,abs(i)), mode='constant', value=0)
-#                 padded_a = nn.ConstantPad2d((0,abs(j),0,abs(i)), 0)(map1)
+
                 
                 padded_b = F.pad(map2, (abs(j),0,abs(i),0), mode='constant', value=0)
-#                 padded_b = nn.ConstantPad2d((abs(j),0,abs(i),0), 0)(map2)
-#                 print(padded_a.shape, padded_b.shape)
+
                 m = padded_a * padded_b
-#                 print(m.shape)
+
                 height_start_idx = 0 if i <= 0 else i
                 height_end_idx = height_start_idx + HEIGHT
                 width_start_idx = 0 if j <= 0 else j
                 width_end_idx = width_start_idx + WIDTH
                 cut = m[:, :, height_start_idx:height_end_idx, width_start_idx:width_end_idx]
-#                 print("c", cut.shape)
 
                 final = torch.sum(cut, 1)
                 out.append(final)
-        # for o in out:
-        #     print(o.shape, n_size)
+
         corr = torch.stack(out, 1)
-        return corr, depth
-    
-    
+        return corr, depth 

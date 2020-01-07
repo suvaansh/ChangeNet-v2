@@ -27,7 +27,7 @@ parser.add_argument('--weight-decay', '--wd', default=1e-4, type=float, metavar=
 parser.add_argument('--print_freq', '-p', default=0, type=int, metavar='N', help='print frequency (default: 10)')
 parser.add_argument('--resume', default='', type=str, metavar='PATH', help='path to latest checkpoint (default: none)')
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true', help='evaluate model on validation set')
-parser.add_argument('--pos_weights', default=(0.2, 0.8), help='class weights due to dataset imbalance')
+parser.add_argument('--cls_weights', default=(0.2, 0.8), help='class weights due to dataset imbalance')
 parser.add_argument('-v', '--efile', default='val', type=str,  help='evaluation csv file')
 
 
@@ -43,8 +43,8 @@ def main():
     use_gpu = torch.cuda.is_available()
 
     # define dataset
-    train_dataset = GSV(args.data, 'train')
-    val_dataset = GSV(args.data, args.efile)
+    train_dataset = VL_CMU_CD(args.data, 'train')
+    val_dataset = VL_CMU_CD(args.data, args.efile)
 
     # load model
     backbone = torchvision.models.vgg16(pretrained=True)
@@ -59,8 +59,8 @@ def main():
     state['save_model_path'] = './models'
     state['epoch_step']={0}
     state['print_freq'] = args.print_freq
-    state['pos_weight_neg'] = args.pos_weights[0]
-    state['pos_weight_pos'] = args.pos_weights[1]
+    state['cls_weight_neg'] = args.cls_weights[0]
+    state['cls_weight_pos'] = args.cls_weights[1]
     state['threshold'] = 0.5
     state['multi_gpu'] = True
 
