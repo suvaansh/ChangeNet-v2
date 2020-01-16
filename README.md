@@ -30,6 +30,51 @@ This repository has been tested for Python3.
 2. Install [Torchvision][9] via pip3. It is used for incorporating feature extractor(VGG) pretrained on Imagenet
 3. Install [tqdm][8] via pip3. It is used for generating pregress bars.
 
+Dataset
+------------------
+The VL-CMU-CD dataset can be downloaded from the [project page][5] of the paper [Street-View Change Detection with Deconvolutional Networks (RSS'16)][4].
+This dataset is availble on request.
+
+#### Dataset Schema
+
+    .
+    ├── ...
+    ├── VL_CMU_CD                    # Test files (alternatively `spec` or `tests`)
+    │   ├── left          # Contains test images
+    │   │   ├── 001_00.jpeg
+    │   │   ├── 001_01.jpeg
+    │   │   └── ...
+    │   │
+    │   ├── right          # Contains reference images
+    │   │   ├── 001_00.jpeg
+    │   │   ├── 001_01.jpeg
+    │   │   └── ...
+    │   │
+    │   ├── GT_MULTICLASS          # Contains Groundtruth 3d maps with each channel(11) representing single class at every pixel
+    │   │   ├── 001_00.npy
+    │   │   ├── 001_01.npy
+    │   │   └── ...
+    │   │
+    │   ├── mask          # Binary Mask for region of interest
+    │   │   ├── 001_00.jpeg
+    │   │   ├── 001_01.jpeg
+    │   │   └── ...
+    │   │
+    │   └── ...
+    │
+    └── ...
+
+Training
+--------
+
+
+
+
+Evaluation
+----------
+
+[4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
+[5]: https://ghsi.github.io/proj/RSS2016.html
 [7]: https://pytorch.org
 [8]: https://pypi.python.org/pypi/tqdm
 [9]: https://pytorch.org/docs/stable/torchvision/index.html
