@@ -67,8 +67,23 @@ This dataset is availble on request.
 Training
 --------
 
+The **`main.py`** script is used for training. It trains the model iteratively over the entire dataset for the specified number of epochs. Use the following command for training the baseline model provided in this repository. The baseline experiment used Adam Optimiser with `1e-4` as initial learning rate. The model trains for `50 epochs` by default.
 
+```
+python main.py --data /path/to/dataset/VL_CMU_CD
+```
 
+We can resume training from a saved checkpoint by using the `resume` option and passing the checkpoint path as argument: 
+
+```
+python main.py --data /path/to/dataset/VL_CMU_CD --resume model/checkpoint.pth.tar
+```
+
+We can train our model on multiple GPUs using the `device_ids` option and passing the device ids to be used as a string. 
+
+```
+python main.py --data /path/to/dataset/VL_CMU_CD --device_ids "device ids separated by commas (e.g. 0,1,2,...)"
+```
 
 Evaluation
 ----------
