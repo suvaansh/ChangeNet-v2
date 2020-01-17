@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser(description='VL_CMU_CD')
 parser.add_argument('--data', metavar='DIR',default='../../../VL_CMU_CD', help='path to dataset (e.g. ../data/')
 parser.add_argument('--image_size', '-i', default=(192,256), help='image size (default: (192,256))')
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N', help='number of data loading workers (default: 4)')
-parser.add_argument('--epochs', default=150, type=int, metavar='N', help='number of total epochs to run')
+parser.add_argument('--epochs', default=50, type=int, metavar='N', help='number of total epochs to run')
 parser.add_argument('--start_epoch', default=0, type=int, metavar='N', help='manual epoch number (useful on restarts)')
 parser.add_argument('-b', '--batch_size', default=1, type=int, metavar='N', help='mini-batch size (default: 1)')
 parser.add_argument('--lr', '--learning-rate', default=1e-4, type=float, metavar='LR', help='initial learning rate')
@@ -29,10 +29,11 @@ parser.add_argument('--resume', default='', type=str, metavar='PATH', help='path
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true', help='evaluate model on validation set')
 parser.add_argument('--cls_weights', default=(0.2, 0.8), help='class weights due to dataset imbalance')
 parser.add_argument('-v', '--efile', default='val', type=str,  help='evaluation csv file')
+parser.add_argument('-dl', '--device_ids', help='ids of devices to be used', type=str)
 
 
 # os.environ["CUDA_VISIBLE_DEVICES"] = "6"
-os.environ["TORCH_HOME"] = "../MODEL"
+# os.environ["TORCH_HOME"] = "../MODEL"
 
 def main():
     global args, best_prec1, use_gpu
@@ -42,6 +43,9 @@ def main():
 
     # Using GPUs if available
     use_gpu = torch.cuda.is_available()
+    if use_gpu and (args.device_ids is not None):
+        device_ids = [int(item) for item in args.device_ids.split(',')]
+
 
     # define dataset
     train_dataset = VL_CMU_CD(args.data, 'train')
@@ -65,7 +69,8 @@ def main():
     state['cls_weight_pos'] = args.cls_weights[1]
     state['threshold'] = 0.5
     state['multi_gpu'] = True
-
+    if args.device_ids is not None:
+        state['device_ids'] = device_ids
     state['CATEGORY_TO_LABEL_DICT'] = {'background': 0, 'barrier': 1, 'bin': 2, 'construction': 3, 'person/bicycle': 4, 'rubbish_bin': 5, 'sign_board': 6, 'traffic_cone': 7, 'vehicles': 8, 'other_objects': 9,}
     state['LABEL_TO_CATEGORY_DICT'] = {v: k for k, v in state['CATEGORY_TO_LABEL_DICT'].items()}
 
