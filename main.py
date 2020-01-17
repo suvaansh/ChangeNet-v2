@@ -25,12 +25,11 @@ parser.add_argument('-b', '--batch_size', default=1, type=int, metavar='N', help
 parser.add_argument('--lr', '--learning-rate', default=1e-4, type=float, metavar='LR', help='initial learning rate')
 parser.add_argument('--weight-decay', '--wd', default=1e-4, type=float, metavar='W', help='weight decay (default: 1e-4)')
 parser.add_argument('--print_freq', '-p', default=0, type=int, metavar='N', help='print frequency (default: 10)')
-parser.add_argument('--resume', default='', type=str, metavar='PATH', help='path to latest checkpoint (default: none)')
+parser.add_argument('--resume', type=str, metavar='PATH', help='path to latest checkpoint (default: none)')
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true', help='evaluate model on validation set')
 parser.add_argument('--cls_weights', default=(0.2, 0.8), help='class weights due to dataset imbalance')
 parser.add_argument('-v', '--efile', default='val', type=str,  help='evaluation csv file')
-parser.add_argument('-dl', '--device_ids', help='ids of devices to be used', type=str)
-
+parser.add_argument('-di', '--device_ids', help='ids of devices to be used', type=str)
 
 # os.environ["CUDA_VISIBLE_DEVICES"] = "6"
 # os.environ["TORCH_HOME"] = "../MODEL"
@@ -67,10 +66,11 @@ def main():
     state['print_freq'] = args.print_freq
     state['cls_weight_neg'] = args.cls_weights[0]
     state['cls_weight_pos'] = args.cls_weights[1]
-    state['threshold'] = 0.5
-    state['multi_gpu'] = True
+    
     if args.device_ids is not None:
         state['device_ids'] = device_ids
+        state['multi_gpu'] = True
+
     state['CATEGORY_TO_LABEL_DICT'] = {'background': 0, 'barrier': 1, 'bin': 2, 'construction': 3, 'person/bicycle': 4, 'rubbish_bin': 5, 'sign_board': 6, 'traffic_cone': 7, 'vehicles': 8, 'other_objects': 9,}
     state['LABEL_TO_CATEGORY_DICT'] = {v: k for k, v in state['CATEGORY_TO_LABEL_DICT'].items()}
 
