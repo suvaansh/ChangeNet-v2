@@ -33,7 +33,7 @@ This repository has been tested for Python3.
 Dataset
 ------------------
 The VL-CMU-CD dataset can be downloaded from the [project page][5] of the paper [Street-View Change Detection with Deconvolutional Networks (RSS'16)][4].
-This dataset is availble on request.
+This dataset is available on request.
 
 #### Dataset Schema
 
@@ -113,7 +113,7 @@ The metrics used for evaluation are:
 
 Pretrained Checkpoint
 ---------------------
-Best performing checkpoint has been made available in this repository [here]()
+Best performing checkpoint has been made available in this repository [here](https://github.com/suvaansh/CorrNet/tree/master/models)
 
 
 [4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
