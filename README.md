@@ -130,7 +130,7 @@ Reported Results
             <th>Bin</th>
             <th>Construction</th>
             <th>Other Objects</th>
-            <th>Person / Bicycle</th>
+            <th>Person Bicycle</th>
             <th>Rubbish Bin</th>
             <th>Sign Board</th>
             <th>Traffic Cone</th>
