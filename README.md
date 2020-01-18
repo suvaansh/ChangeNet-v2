@@ -69,19 +69,19 @@ Training
 
 The **`main.py`** script is used for training. It trains the model iteratively over the entire dataset for the specified number of epochs. Use the following command for training the baseline model provided in this repository. The baseline experiment used Adam Optimiser with `1e-4` as initial learning rate. The model trains for `50 epochs` by default.
 
-```
+```sh
 python3 main.py --data /path/to/dataset/VL_CMU_CD
 ```
 
 We can resume training from a saved checkpoint by using the `resume` option and passing the checkpoint path as argument: 
 
-```
+```sh
 python3 main.py --data /path/to/dataset/VL_CMU_CD --resume model/checkpoint.pth.tar
 ```
 
 We can train our model on multiple GPUs using the `device_ids` option and passing the device ids as arguments as a `string`. 
 
-```
+```sh
 python3 main.py --data /path/to/dataset/VL_CMU_CD --device_ids "gpu ids separated by commas (e.g. 0,1,2,...)"
 ```
 
@@ -89,7 +89,7 @@ Evaluation
 ----------
 The **`main.py`** script along with `evaluate` flag is  used for the purpose of evaluation. It takes a pretrained model and evaluate the model on the image ids present in the csv file passed as an argument with `efile` option.
 
-```
+```sh
 python3 main.py --data /path/to/dataset/VL_CMU_CD --resume /path/to/saved/model.pth.tar --evaluate --efile test 
 ```
 The above command will test the trained model on `test.csv` file
