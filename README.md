@@ -99,15 +99,17 @@ The above command will test the trained model on `test.csv` file
 
 The metrics used for evaluation are:
 
-**Precision**: Precision tells us about how accurate our model is. Means, out of the predicted positive pixels, how many of are actually positive.<br>
+**Precision**: Precision tells us about how accurate our model is. Means, out of the predicted positive pixels, how many of are actually positive.<br><br>
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;Precision=\frac{TruePositives}{TruePositives+FalsePositives}" title="\Large Precision=\frac{TruePositives}{TruePositives+FalsePositives}" />
+<br>
 
-
-**Recall**: Recall calculates out of all the Actual Positives, how many can our model identify by labelling them as positive.<br>
+**Recall**: Recall calculates out of all the Actual Positives, how many can our model identify by labelling them as positive.<br><br>
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;Recall=\frac{TruePositives}{TruePositives+FalseNegatives}" title="\Large Recall=\frac{TruePositives}{TruePositives+FalseNegatives}" />
+<br>
 
-**F Measure**: F Measure is the harmonic mean of Precision and Recall. We need this metric when we need to maintain a balance between the both. F Measure's value goes down if either of the 2 have low value. Which makes it the perfect metric for class imbalanced datasets<br> 
+**F Measure**: F Measure is the harmonic mean of Precision and Recall. We need this metric when we need to maintain a balance between the both. F Measure's value goes down if either of the 2 have low value. Which makes it the perfect metric for class imbalanced datasets <br><br> 
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;FMeasure=\frac{2*Precision*Recall}{Precision+Recall}" title="\Large FMeasure=\frac{2*Precision*Recall}{Precision+Recall}" />
+<br>
 
 Pretrained Checkpoint
 ---------------------
