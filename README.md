@@ -79,14 +79,33 @@ We can resume training from a saved checkpoint by using the `resume` option and 
 python main.py --data /path/to/dataset/VL_CMU_CD --resume model/checkpoint.pth.tar
 ```
 
-We can train our model on multiple GPUs using the `device_ids` option and passing the device ids to be used as a string. 
+We can train our model on multiple GPUs using the `device_ids` option and passing the device ids as arguments as a `string`. 
 
 ```
-python main.py --data /path/to/dataset/VL_CMU_CD --device_ids "device ids separated by commas (e.g. 0,1,2,...)"
+python main.py --data /path/to/dataset/VL_CMU_CD --device_ids "gpu ids separated by commas (e.g. 0,1,2,...)"
 ```
 
 Evaluation
 ----------
+The **`main.py`** script along with `evaluate` flag is  used for the purpose of evaluation. It takes a pretrained model and evaluate the model on the image ids present in the csv file passed as an argument with `efile` option.
+
+```
+python main.py --data /path/to/dataset/VL_CMU_CD --resume /path/to/saved/model.pth.tar --evaluate --efile test 
+```
+The above command will test the trained model on `test.csv` file
+
+### Metrics
+
+The metrics used for evaluation are:
+
+**Precision**: Precision tells us about how accurate our model is. Means, out of the predicted positive pixels, how many of are actually positive.
+
+**Recall**: Recall calculates out of all the Actual Positives, how many can our model identify by labelling them as positive.
+
+**F Measure**: F Measure is the harmonic mean of Precision and Recall. We need this metric when we need to maintain a balance between the both. F Measure's value goes down if either of the 2 have low value. Which makes it the perfect metric for class imbalanced datasets 
+
+
+
 
 [4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
 [5]: https://ghsi.github.io/proj/RSS2016.html
