@@ -215,7 +215,7 @@ Reported Results
     </tbody>
 </table>
 
-
+<br><br>
 
 <table>
     <caption> Average results of 5-fold cross validation for binary and multi-class
@@ -238,11 +238,72 @@ categories in VL-CMU-CD dataset. </caption>
             <td>93.8</td>
         </tr>
         <tr>
-            <td>Multi-class</td>
+            <th>Multi-class</th>
             <td>78.5</td>
             <td>76.0</td>
             <td>71.3</td>
             <td>73.4</td>
+        </tr>
+    </tbody>
+</table>
+
+<br><br>
+
+<table>
+    <caption> The quantitative comparison of our method with other approaches for
+FPR = 0.1 and FPR = 0.01. </caption>
+    <thead>
+        <tr>
+            <th></th>
+            <th colspan=3>FPR = 0.1</th>
+            <th colspan=3>FPR = 0.01</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Metric→  <br>----------<br>  Methods↓</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>f-score</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>f-score</th>
+        </tr>
+        <tr>
+            <th>Super-pixel</th>
+            <td>0.17</td>
+            <td>0.35</td>
+            <td>0.23</td>
+            <td>0.23</td>
+            <td>0.12</td>
+            <td>0.15</td>
+        </tr>
+        <tr>
+            <th>CDnet</th>
+            <td>0.40</td>
+            <td>0.85</td>
+            <td>0.55</td>
+            <td>0.79</td>
+            <td>0.46</td>
+            <td>0.58</td>
+        </tr>
+        <tr>
+            <th>ChangeNet</th>
+            <td>0.79</td>
+            <td>0.80</td>
+            <td>0.79</td>
+            <td>0.80</td>
+            <td>0.79</td>
+            <td>0.79</td>
+        </tr>
+        <tr>
+            <th>ChangeNet-v2</th>
+            <td>0.93</td>
+            <td>0.93</td>
+            <td>0.93</td>
+            <td>0.90</td>
+            <td>0.94</td>
+            <td>0.93</td>         
         </tr>
     </tbody>
 </table>
