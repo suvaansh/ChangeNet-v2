@@ -125,7 +125,7 @@ Reported Results
     <thead>
         <tr>
             <th>Classification</th>
-            <th>Class→  <br>----------<br>  Metric↓</th>
+            <th>Class→ <br> Metric↓</th>
             <th>Barrier</th>
             <th>Bin</th>
             <th>Construction</th>
