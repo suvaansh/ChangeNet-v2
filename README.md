@@ -270,7 +270,7 @@ FPR = 0.1 and FPR = 0.01. </caption>
             <th>f-score</th>
         </tr>
         <tr>
-            <th>[Super-pixel][7]</th>
+            <th><a href = "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8227506" target="_blank">Super-pixel</a></th>
             <td>0.17</td>
             <td>0.35</td>
             <td>0.23</td>
@@ -279,7 +279,7 @@ FPR = 0.1 and FPR = 0.01. </caption>
             <td>0.15</td>
         </tr>
         <tr>
-            <th>[CDnet][4]</th>
+            <th><a href ="http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf" target="_blank">CDnet</a></th>
             <td>0.40</td>
             <td>0.85</td>
             <td>0.55</td>
@@ -288,7 +288,7 @@ FPR = 0.1 and FPR = 0.01. </caption>
             <td>0.58</td>
         </tr>
         <tr>
-            <th>[ChangeNet][6]</th>
+            <th><a href = "http://openaccess.thecvf.com/content_ECCVW_2018/papers/11130/Varghese_ChangeNet_A_Deep_Learning_Architecture_for_Visual_Change_Detection_ECCVW_2018_paper.pdf" target="_blank">ChangeNet</a></th>
             <td>0.79</td>
             <td>0.80</td>
             <td>0.79</td>
@@ -313,5 +313,3 @@ FPR = 0.1 and FPR = 0.01. </caption>
 [3]: https://pytorch.org/docs/stable/torchvision/index.html
 [4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
 [5]: https://ghsi.github.io/proj/RSS2016.html
-[6]: http://openaccess.thecvf.com/content_ECCVW_2018/papers/11130/Varghese_ChangeNet_A_Deep_Learning_Architecture_for_Visual_Change_Detection_ECCVW_2018_paper.pdf
-[7]: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8227506
