@@ -217,6 +217,37 @@ Reported Results
 
 
 
+<table>
+    <caption> Average results of 5-fold cross validation for binary and multi-class
+categories in VL-CMU-CD dataset. </caption>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Accuracy</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>f-score</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Binary</th>
+            <td>99.2</td>
+            <td>93.7</td>
+            <td>93.9</td>
+            <td>93.8</td>
+        </tr>
+        <tr>
+            <td>Multi-class</td>
+            <td>78.5</td>
+            <td>76.0</td>
+            <td>71.3</td>
+            <td>73.4</td>
+        </tr>
+    </tbody>
+</table>
+
+
 [4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
 [5]: https://ghsi.github.io/proj/RSS2016.html
 [7]: https://pytorch.org
