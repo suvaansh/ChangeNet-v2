@@ -3,9 +3,10 @@ Change Detection
 
 Code for the Paper
 
-**[ChangeNet-v2: Semantic Change detection with Convolutional Neural Networks][1]**
+**[ChangeNet-v2: Semantic Change detection with Convolutional Neural Networks][6]**
 K. Ram Prabhakar, Akshaya Ramasamy, Suvaansh Bhambri, Jayavardhana Gubbi, R. Venkatesh Babu, Balamuralidhar Purushothaman
 <br>Link to be added[]()
+<br>
 
 Introduction
 ------------
@@ -20,6 +21,7 @@ change detection datasets: VL-CMU-CD (Alcantarilla et al. (2018)), TSUNAMI (Saku
 (Sakurada and Okatani (2015)) datasets.
 
 <img src="https://github.com/suvaansh/CorrNet/blob/master/Images/ChangeNet_Img1.jpg"/>
+<br>
 
 Setup
 -----
@@ -29,9 +31,10 @@ This repository has been tested for Python3.
 1. Install PyTorch (Python3) by following instructions on [PyTorch Homepage][1].
 2. Install [Torchvision][2] via pip3. It is used for incorporating feature extractor(VGG) pretrained on Imagenet
 3. Install [tqdm][3] via pip3. It is used for generating pregress bars.
+<br>
 
 Dataset
-------------------
+-------
 The VL-CMU-CD dataset can be downloaded from the [project page][5] of the paper [Street-View Change Detection with Deconvolutional Networks (RSS'16)][4].
 This dataset is available on request.
 
@@ -63,6 +66,7 @@ This dataset is available on request.
     │   └── ...
     │
     └── ...
+<br>
 
 Training
 --------
@@ -84,6 +88,7 @@ We can train our model on multiple GPUs using the `device_ids` option and passin
 ```sh
 python3 main.py --data /path/to/dataset/VL_CMU_CD --device_ids "gpu ids separated by commas (e.g. 0,1,2,...)"
 ```
+<br>
 
 Evaluation
 ----------
@@ -109,13 +114,14 @@ The metrics used for evaluation are:
 
 **F Measure**: F Measure is the harmonic mean of Precision and Recall. We need this metric when we need to maintain a balance between the both. F Measure's value goes down if either of the 2 have low value. Which makes it the perfect metric for class imbalanced datasets <br><br> 
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;FMeasure=\frac{2*Precision*Recall}{Precision+Recall}" title="\Large FMeasure=\frac{2*Precision*Recall}{Precision+Recall}" />
-<br>
+<br><br>
 
 Best Checkpoint
 ---------------
 Best performing checkpoint has been made available in this repository [here](https://github.com/suvaansh/CorrNet/tree/master/models)
 
 TODO: Add inferencing code using trained checkpoint
+<br><br>
 
 Reported Results
 ----------------
@@ -307,9 +313,31 @@ FPR = 0.1 and FPR = 0.01. </caption>
         </tr>
     </tbody>
 </table>
+<br>
+
+References
+----------
+
+**1. Alcantarilla, P.F., Stent, S., Ros, G., Arroyo, R., Gherardi, R.**, 2018. Street-
+view change detection with deconvolutional networks. Autonomous Robots 42, 1301–1322.
+
+**2. Babaee, M., Dinh, D.T., Rigoll, G.**, 2018. A deep convolutional neural network for video sequence background subtraction. Pattern Recognition 76, 635–649.
+
+**3. Gressin, A., Vincent, N., Mallet, C., Paparoditis, N.**, 2013. Semantic approach in image change detection, in: International Conference on Advanced Concepts for Intelligent Vision Systems, Springer. pp. 450–459.
+
+**4. Gubbi, J., Ramaswamy, A., Sandeep, N., Varghese, A., Balamuralidhar, P.**, 2017. Visual change detection using multiscale super pixel, in: Digital Image Computing: Techniques and Applications (DICTA), 2017 International Conference on, IEEE. pp. 1–6.
+
+**5. Hussain, M., Chen, D., Cheng, A., Wei, H., Stanley, D.**, 2013. Change detection from remotely sensed images: From pixel-based to object-based approaches. ISPRS Journal of photogrammetry and remote sensing 80, 91–106.
+
+**6. Sakurada, K., Okatani, T.**, 2015. Change detection from a street image pair using cnn features and superpixel segmentation., in: BMVC, pp. 61–1. St-Charles, P.L., Bilodeau, G.A., Bergevin, R., 2015. Subsense: A universal
+change detection method with local adaptive sensitivity. IEEE Transactions on Image Processing 24, 359–373.
+
+**7. Varghese, A., Jayavardhana, G., Akshaya, R., Balamuralidhar, P.**, 2018. Changenet: A deep learning architecture for visual change detection, in European Conference on Computer Vision Workshops (ECCVW), IEEE.
+
 
 [1]: https://pytorch.org
 [2]: https://pypi.python.org/pypi/tqdm
 [3]: https://pytorch.org/docs/stable/torchvision/index.html
 [4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
 [5]: https://ghsi.github.io/proj/RSS2016.html
+[6]: Add paper link
