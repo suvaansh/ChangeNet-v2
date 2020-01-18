@@ -261,7 +261,7 @@ FPR = 0.1 and FPR = 0.01. </caption>
     </thead>
     <tbody>
         <tr>
-            <th>Metric→  <br>----------<br>  Methods↓</th>
+            <th>Metric→ <br> Methods↓</th>
             <th>Precision</th>
             <th>Recall</th>
             <th>f-score</th>
