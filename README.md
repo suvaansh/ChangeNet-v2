@@ -26,9 +26,9 @@ Setup
 
 This repository has been tested for Python3.
 
-1. Install PyTorch (Python3) by following instructions on [PyTorch Homepage][7].
-2. Install [Torchvision][9] via pip3. It is used for incorporating feature extractor(VGG) pretrained on Imagenet
-3. Install [tqdm][8] via pip3. It is used for generating pregress bars.
+1. Install PyTorch (Python3) by following instructions on [PyTorch Homepage][1].
+2. Install [Torchvision][2] via pip3. It is used for incorporating feature extractor(VGG) pretrained on Imagenet
+3. Install [tqdm][3] via pip3. It is used for generating pregress bars.
 
 Dataset
 ------------------
@@ -270,7 +270,7 @@ FPR = 0.1 and FPR = 0.01. </caption>
             <th>f-score</th>
         </tr>
         <tr>
-            <th>Super-pixel</th>
+            <th>[Super-pixel][7]</th>
             <td>0.17</td>
             <td>0.35</td>
             <td>0.23</td>
@@ -279,7 +279,7 @@ FPR = 0.1 and FPR = 0.01. </caption>
             <td>0.15</td>
         </tr>
         <tr>
-            <th>CDnet</th>
+            <th>[CDnet][4]</th>
             <td>0.40</td>
             <td>0.85</td>
             <td>0.55</td>
@@ -288,7 +288,7 @@ FPR = 0.1 and FPR = 0.01. </caption>
             <td>0.58</td>
         </tr>
         <tr>
-            <th>ChangeNet</th>
+            <th>[ChangeNet][6]</th>
             <td>0.79</td>
             <td>0.80</td>
             <td>0.79</td>
@@ -308,9 +308,10 @@ FPR = 0.1 and FPR = 0.01. </caption>
     </tbody>
 </table>
 
-
+[1]: https://pytorch.org
+[2]: https://pypi.python.org/pypi/tqdm
+[3]: https://pytorch.org/docs/stable/torchvision/index.html
 [4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
 [5]: https://ghsi.github.io/proj/RSS2016.html
-[7]: https://pytorch.org
-[8]: https://pypi.python.org/pypi/tqdm
-[9]: https://pytorch.org/docs/stable/torchvision/index.html
+[6]: http://openaccess.thecvf.com/content_ECCVW_2018/papers/11130/Varghese_ChangeNet_A_Deep_Learning_Architecture_for_Visual_Change_Detection_ECCVW_2018_paper.pdf
+[7]: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8227506
