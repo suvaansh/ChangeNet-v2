@@ -111,9 +111,110 @@ The metrics used for evaluation are:
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;FMeasure=\frac{2*Precision*Recall}{Precision+Recall}" title="\Large FMeasure=\frac{2*Precision*Recall}{Precision+Recall}" />
 <br>
 
-Pretrained Checkpoint
----------------------
+Best Checkpoint
+---------------
 Best performing checkpoint has been made available in this repository [here](https://github.com/suvaansh/CorrNet/tree/master/models)
+
+TODO: Add inferencing code using trained checkpoint
+
+Reported Results
+----------------
+
+<table>
+    <caption> Analysis of ChangeNet-v2 results at class level on VL-CMU-CD data set. </caption>
+    <thead>
+        <tr>
+            <th>Classification</th>
+            <th>Class→  <br>----------<br>  Metric↓</th>
+            <th>Barrier</th>
+            <th>Bin</th>
+            <th>Construction</th>
+            <th>Other Objects</th>
+            <th>Person/Bicycle</th>
+            <th>Rubbish Bin</th>
+            <th>Sign Board</th>
+            <th>Traffic Cone</th>
+            <th>Vehicle</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th rowspan=3>Pixel Based</th>
+            <td>Precision</td>
+            <td >0.74</td>
+            <td>0.76</td>
+            <td>0.90</td>
+            <td>0.67</td>
+            <td>0.84</td>
+            <td>0.56</td>
+            <td>0.78</td>
+            <td>0.67</td>
+            <td>0.92</td>            
+        </tr>
+        <tr>
+            <td>Recall</td>
+            <td>0.70</td>
+            <td>0.72</td>
+            <td>0.85</td>
+            <td>0.65</td>
+            <td>0.79</td>
+            <td>0.50</td>
+            <td>0.69</td>
+            <td>0.60</td>
+            <td>0.88</td>
+        </tr>
+        <tr>
+            <td>F_Measure</td>
+            <td>0.72</td>
+            <td>0.74</td>
+            <td>0.87</td>
+            <td>0.66</td>
+            <td>0.81</td>
+            <td>0.53</td>
+            <td>0.73</td>
+            <td>0.63</td>
+            <td>0.90</td>
+        </tr>
+        <tr>
+            <th rowspan=3>Object Based</th>
+            <td>Precision</td>
+            <td>1.00</td>
+            <td>0.97</td>
+            <td>0.88</td>
+            <td>1.00</td>
+            <td>1.00</td>
+            <td>0.96</td>
+            <td>1.00</td>
+            <td>1.00</td>
+            <td>1.00</td>            
+        </tr>
+        <tr>
+            <td>Recall</td>
+            <td>0.78</td>
+            <td>1.00</td>
+            <td>1.00</td>
+            <td>0.63</td>
+            <td>1.00</td>
+            <td>1.00</td>
+            <td>0.87</td>
+            <td>0.58</td>
+            <td>0.97</td>
+        </tr>
+        <tr>
+            <td>F_Measure</td>
+            <td>0.87</td>
+            <td>0.98</td>
+            <td>0.94</td>
+            <td>0.78</td>
+            <td>1.00</td>
+            <td>0.97</td>
+            <td>0.93</td>
+            <td>0.73</td>
+            <td>0.98</td>
+        </tr>    
+    </tbody>
+</table>
+
 
 
 [4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
