@@ -40,22 +40,22 @@ This dataset is availble on request.
     .
     ├── ...
     ├── VL_CMU_CD                    # Test files (alternatively `spec` or `tests`)
-    │   ├── left          # Contains test images
+    │   ├── left                     # Contains test images
     │   │   ├── 001_00.jpeg
     │   │   ├── 001_01.jpeg
     │   │   └── ...
     │   │
-    │   ├── right          # Contains reference images
+    │   ├── right                    # Contains reference images
     │   │   ├── 001_00.jpeg
     │   │   ├── 001_01.jpeg
     │   │   └── ...
     │   │
-    │   ├── GT_MULTICLASS          # Contains Groundtruth 3d maps with each channel(11) representing single class at every pixel
+    │   ├── GT_MULTICLASS            # Contains Groundtruth 3d maps with each channel(11) representing single class at every pixel
     │   │   ├── 001_00.npy
     │   │   ├── 001_01.npy
     │   │   └── ...
     │   │
-    │   ├── mask          # Binary Mask for region of interest
+    │   ├── mask                     # Binary Mask for region of interest
     │   │   ├── 001_00.jpeg
     │   │   ├── 001_01.jpeg
     │   │   └── ...
@@ -67,11 +67,54 @@ This dataset is availble on request.
 Training
 --------
 
+The **`main.py`** script is used for training. It trains the model iteratively over the entire dataset for the specified number of epochs. Use the following command for training the baseline model provided in this repository. The baseline experiment used Adam Optimiser with `1e-4` as initial learning rate. The model trains for `50 epochs` by default.
 
+```sh
+python3 main.py --data /path/to/dataset/VL_CMU_CD
+```
 
+We can resume training from a saved checkpoint by using the `resume` option and passing the checkpoint path as argument: 
+
+```sh
+python3 main.py --data /path/to/dataset/VL_CMU_CD --resume models/checkpoint.pth.tar
+```
+
+We can train our model on multiple GPUs using the `device_ids` option and passing the device ids as arguments as a `string`. 
+
+```sh
+python3 main.py --data /path/to/dataset/VL_CMU_CD --device_ids "gpu ids separated by commas (e.g. 0,1,2,...)"
+```
 
 Evaluation
 ----------
+The **`main.py`** script along with `evaluate` flag is  used for the purpose of evaluation. It takes a pretrained model and evaluate the model on the image ids present in the csv file passed as an argument with `efile` option.
+
+```sh
+python3 main.py --data /path/to/dataset/VL_CMU_CD --resume /path/to/saved/model.pth.tar --evaluate --efile test 
+```
+The above command will test the trained model on `test.csv` file
+
+
+### Metrics
+
+The metrics used for evaluation are:
+
+**Precision**: Precision tells us about how accurate our model is. Means, out of the predicted positive pixels, how many of are actually positive.<br><br>
+<img src="https://latex.codecogs.com/svg.latex?\Large&space;Precision=\frac{TruePositives}{TruePositives+FalsePositives}" title="\Large Precision=\frac{TruePositives}{TruePositives+FalsePositives}" />
+<br>
+
+**Recall**: Recall calculates out of all the Actual Positives, how many can our model identify by labelling them as positive.<br><br>
+<img src="https://latex.codecogs.com/svg.latex?\Large&space;Recall=\frac{TruePositives}{TruePositives+FalseNegatives}" title="\Large Recall=\frac{TruePositives}{TruePositives+FalseNegatives}" />
+<br>
+
+**F Measure**: F Measure is the harmonic mean of Precision and Recall. We need this metric when we need to maintain a balance between the both. F Measure's value goes down if either of the 2 have low value. Which makes it the perfect metric for class imbalanced datasets <br><br> 
+<img src="https://latex.codecogs.com/svg.latex?\Large&space;FMeasure=\frac{2*Precision*Recall}{Precision+Recall}" title="\Large FMeasure=\frac{2*Precision*Recall}{Precision+Recall}" />
+<br>
+
+Pretrained Checkpoint
+---------------------
+Best performing checkpoint has been made available in this repository [here]()
+
 
 [4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
 [5]: https://ghsi.github.io/proj/RSS2016.html
