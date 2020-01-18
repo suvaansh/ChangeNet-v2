@@ -215,7 +215,7 @@ Reported Results
     </tbody>
 </table>
 
-<br><br>
+<br>
 
 <table>
     <caption> Average results of 5-fold cross validation for binary and multi-class
@@ -247,7 +247,7 @@ categories in VL-CMU-CD dataset. </caption>
     </tbody>
 </table>
 
-<br><br>
+<br>
 
 <table>
     <caption> The quantitative comparison of our method with other approaches for
