@@ -40,22 +40,22 @@ This dataset is availble on request.
     .
     ├── ...
     ├── VL_CMU_CD                    # Test files (alternatively `spec` or `tests`)
-    │   ├── left          # Contains test images
+    │   ├── left                     # Contains test images
     │   │   ├── 001_00.jpeg
     │   │   ├── 001_01.jpeg
     │   │   └── ...
     │   │
-    │   ├── right          # Contains reference images
+    │   ├── right                    # Contains reference images
     │   │   ├── 001_00.jpeg
     │   │   ├── 001_01.jpeg
     │   │   └── ...
     │   │
-    │   ├── GT_MULTICLASS          # Contains Groundtruth 3d maps with each channel(11) representing single class at every pixel
+    │   ├── GT_MULTICLASS            # Contains Groundtruth 3d maps with each channel(11) representing single class at every pixel
     │   │   ├── 001_00.npy
     │   │   ├── 001_01.npy
     │   │   └── ...
     │   │
-    │   ├── mask          # Binary Mask for region of interest
+    │   ├── mask                     # Binary Mask for region of interest
     │   │   ├── 001_00.jpeg
     │   │   ├── 001_01.jpeg
     │   │   └── ...
