@@ -76,7 +76,7 @@ python3 main.py --data /path/to/dataset/VL_CMU_CD
 We can resume training from a saved checkpoint by using the `resume` option and passing the checkpoint path as argument: 
 
 ```sh
-python3 main.py --data /path/to/dataset/VL_CMU_CD --resume model/checkpoint.pth.tar
+python3 main.py --data /path/to/dataset/VL_CMU_CD --resume models/checkpoint.pth.tar
 ```
 
 We can train our model on multiple GPUs using the `device_ids` option and passing the device ids as arguments as a `string`. 
@@ -113,6 +113,8 @@ The metrics used for evaluation are:
 
 Pretrained Checkpoint
 ---------------------
+Best performing checkpoint has been made available in this repository [here]()
+
 
 [4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
 [5]: https://ghsi.github.io/proj/RSS2016.html
