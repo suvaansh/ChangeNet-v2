@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:6419/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>README.md - Grip</title>
+  <link rel="icon" href="http://localhost:6419/__/grip/static/favicon.ico">
+  <link rel="stylesheet" href="./README.md - Grip_files/github-4671a14c445bb7d91d8d57c689b6dd99.css">
+  <link rel="stylesheet" href="./README.md - Grip_files/site-5a00f78f813fef0742082b8add755b17.css">
+  <link rel="stylesheet" href="./README.md - Grip_files/frameworks-6018738d446b2d3d28b9a1be1c77a6c6.css">
+  <link rel="stylesheet" href="./README.md - Grip_files/octicons.css">
+  <style>
+    /* Page tweaks */
+    .preview-page {
+      margin-top: 64px;
+    }
+    /* User-content tweaks */
+    .timeline-comment-wrapper > .timeline-comment:after,
+    .timeline-comment-wrapper > .timeline-comment:before {
+      content: none;
+    }
+    /* User-content overrides */
+    .discussion-timeline.wide {
+      width: 920px;
+    }
+  </style>
+<script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    if (!window.web3.currentProvider ||
+        !window.web3.currentProvider.isMetaMask) {
+      __insertDappDetected()
+    }
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script></head>
+<body class="vsc-initialized">
+  <div class="page">
+    <div id="preview-page" class="preview-page" data-autorefresh-url="/__/grip/refresh/">
+
+    
+
+      <div role="main" class="main-content">
+        <div class="container new-discussion-timeline experiment-repo-nav">
+          <div class="repository-content">
+            <div id="readme" class="readme boxed-group clearfix announce instapaper_body md">
+              
+                <h3>
+                  <span class="octicon octicon-book"></span>
+                  README.md
+                </h3>
+              
+              <article class="markdown-body entry-content" itemprop="text" id="grip-content">
+                <h1>
+<a id="user-content-change-detection" class="anchor" href="http://localhost:6419/#change-detection" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Change Detection</h1>
+<p>Code for the Paper</p>
+<p><strong><a href="http://localhost:6419/Changenet-v2.pdf">ChangeNet-v2: Semantic Change detection with Convolutional Neural Networks</a></strong>
+K. Ram Prabhakar, Akshaya Ramasamy, Suvaansh Bhambri, Jayavardhana Gubbi, R. Venkatesh Babu, Balamuralidhar Purushothaman</p>
+<p><strong>The above mentiioned paper is currently under review in Computer Vision and Image Understanding Journal</strong>
+<br></p>
+<h2>
+<a id="user-content-introduction" class="anchor" href="http://localhost:6419/#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
+<p>In this paper, a novel deep learning architecture is proposed for change detection that targets higher-level inferencing.
+The new network architecture involves extracting features using CNN and combining filter outputs at different levels to
+localize the change. Finally, detected changes are identified using the same network, and output is an object-level change
+detection with the label.</p>
+<p>The proposed architecture is compared with the state-of-the-art using three different modern
+change detection datasets: VL-CMU-CD (Alcantarilla et al. (2018)), TSUNAMI (Sakurada and Okatani(2015)), and GSV
+(Sakurada and Okatani (2015)) datasets.</p>
+<p><a href="./README.md - Grip_files/ChangeNet_Img1.jpg" target="_blank" rel="noopener noreferrer"><img src="./README.md - Grip_files/ChangeNet_Img1.jpg" alt="Qualitative Results" title="Title" style="max-width:100%;"></a>
+<br></p>
+<h2>
+<a id="user-content-setup" class="anchor" href="http://localhost:6419/#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h2>
+<p>This repository has been tested for Python3.</p>
+<ol>
+<li>Install PyTorch (Python3) by following instructions on <a href="https://pytorch.org/" rel="nofollow">PyTorch Homepage</a>.</li>
+<li>Install <a href="https://pypi.python.org/pypi/tqdm" rel="nofollow">Torchvision</a> via pip3. It is used for incorporating feature extractor(VGG) pretrained on Imagenet</li>
+<li>Install <a href="https://pytorch.org/docs/stable/torchvision/index.html" rel="nofollow">tqdm</a> via pip3. It is used for generating pregress bars.</li>
+</ol>
+<br>
+<h2>
+<a id="user-content-dataset" class="anchor" href="http://localhost:6419/#dataset" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dataset</h2>
+<p>The VL-CMU-CD dataset can be downloaded from the <a href="https://ghsi.github.io/proj/RSS2016.html" rel="nofollow">project page</a> of the paper <a href="http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf" rel="nofollow">Street-View Change Detection with Deconvolutional Networks (RSS'16)</a>.
+This dataset is available on request.</p>
+<h4>
+<a id="user-content-dataset-schema" class="anchor" href="http://localhost:6419/#dataset-schema" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dataset Schema</h4>
+<pre><code>.
+├── ...
+├── VL_CMU_CD                    # Test files (alternatively `spec` or `tests`)
+│   ├── left                     # Contains test images
+│   │   ├── 001_00.jpeg
+│   │   ├── 001_01.jpeg
+│   │   └── ...
+│   │
+│   ├── right                    # Contains reference images
+│   │   ├── 001_00.jpeg
+│   │   ├── 001_01.jpeg
+│   │   └── ...
+│   │
+│   ├── GT_MULTICLASS            # Contains Groundtruth 3d maps with each channel(11) representing single class at every pixel
+│   │   ├── 001_00.npy
+│   │   ├── 001_01.npy
+│   │   └── ...
+│   │
+│   ├── mask                     # Binary Mask for region of interest
+│   │   ├── 001_00.jpeg
+│   │   ├── 001_01.jpeg
+│   │   └── ...
+│   │
+│   └── ...
+│
+└── ...
+</code></pre>
+<br>
+<h2>
+<a id="user-content-training" class="anchor" href="http://localhost:6419/#training" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Training</h2>
+<p>The <strong><code>main.py</code></strong> script is used for training. It trains the model iteratively over the entire dataset for the specified number of epochs. Use the following command for training the baseline model provided in this repository. The baseline experiment used Adam Optimiser with <code>1e-4</code> as initial learning rate. The model trains for <code>50 epochs</code> by default.</p>
+<div class="highlight highlight-source-shell"><pre>python3 main.py --data /path/to/dataset/VL_CMU_CD</pre></div>
+<p>We can resume training from a saved checkpoint by using the <code>resume</code> option and passing the checkpoint path as argument:</p>
+<div class="highlight highlight-source-shell"><pre>python3 main.py --data /path/to/dataset/VL_CMU_CD --resume models/checkpoint.pth.tar</pre></div>
+<p>We can train our model on multiple GPUs using the <code>device_ids</code> option and passing the device ids as arguments as a <code>string</code>.</p>
+<div class="highlight highlight-source-shell"><pre>python3 main.py --data /path/to/dataset/VL_CMU_CD --device_ids <span class="pl-s"><span class="pl-pds">"</span>gpu ids separated by commas (e.g. 0,1,2,...)<span class="pl-pds">"</span></span></pre></div>
+<br>
+<h2>
+<a id="user-content-evaluation" class="anchor" href="http://localhost:6419/#evaluation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Evaluation</h2>
+<p>The <strong><code>main.py</code></strong> script along with <code>evaluate</code> flag is  used for the purpose of evaluation. It takes a pretrained model and evaluate the model on the image ids present in the csv file passed as an argument with <code>efile</code> option.</p>
+<div class="highlight highlight-source-shell"><pre>python3 main.py --data /path/to/dataset/VL_CMU_CD --resume /path/to/saved/model.pth.tar --evaluate --efile <span class="pl-c1">test</span> </pre></div>
+<p>The above command will test the trained model on <code>test.csv</code> file</p>
+<h3>
+<a id="user-content-metrics" class="anchor" href="http://localhost:6419/#metrics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Metrics</h3>
+<p>The metrics used for evaluation are:</p>
+<p><strong>Precision</strong>: Precision tells us about how accurate our model is. Means, out of the predicted positive pixels, how many of are actually positive.<br><br>
+<a href="https://camo.githubusercontent.com/f0eef7b2fcf549902c0394d1ebecf473f67b4bba/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f7376672e6c617465783f5c4c617267652673706163653b507265636973696f6e3d5c667261637b54727565506f736974697665737d7b54727565506f736974697665732b46616c7365506f736974697665737d" target="_blank" rel="nofollow"><img src="./README.md - Grip_files/svg.latex" title="\Large Precision=\frac{TruePositives}{TruePositives+FalsePositives}" data-canonical-src="https://latex.codecogs.com/svg.latex?\Large&amp;space;Precision=\frac{TruePositives}{TruePositives+FalsePositives}" style="max-width:100%;"></a>
+<br></p>
+<p><strong>Recall</strong>: Recall calculates out of all the Actual Positives, how many can our model identify by labelling them as positive.<br><br>
+<a href="https://camo.githubusercontent.com/aec462aee243f9d5ab4ef15164721e135b50a4dd/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f7376672e6c617465783f5c4c617267652673706163653b526563616c6c3d5c667261637b54727565506f736974697665737d7b54727565506f736974697665732b46616c73654e65676174697665737d" target="_blank" rel="nofollow"><img src="./README.md - Grip_files/svg(1).latex" title="\Large Recall=\frac{TruePositives}{TruePositives+FalseNegatives}" data-canonical-src="https://latex.codecogs.com/svg.latex?\Large&amp;space;Recall=\frac{TruePositives}{TruePositives+FalseNegatives}" style="max-width:100%;"></a>
+<br></p>
+<p><strong>F Measure</strong>: F Measure is the harmonic mean of Precision and Recall. We need this metric when we need to maintain a balance between the both. F Measure's value goes down if either of the 2 have low value. Which makes it the perfect metric for class imbalanced datasets <br><br>
+<a href="https://camo.githubusercontent.com/d1c4d235da7df81685f34d6f920df4b6cd45ad0b/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f7376672e6c617465783f5c4c617267652673706163653b464d6561737572653d5c667261637b322a507265636973696f6e2a526563616c6c7d7b507265636973696f6e2b526563616c6c7d" target="_blank" rel="nofollow"><img src="./README.md - Grip_files/svg(2).latex" title="\Large FMeasure=\frac{2*Precision*Recall}{Precision+Recall}" data-canonical-src="https://latex.codecogs.com/svg.latex?\Large&amp;space;FMeasure=\frac{2*Precision*Recall}{Precision+Recall}" style="max-width:100%;"></a>
+<br><br></p>
+<h2>
+<a id="user-content-best-checkpoint" class="anchor" href="http://localhost:6419/#best-checkpoint" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Best Checkpoint</h2>
+<p>Best performing checkpoint has been made available in this repository <a href="https://github.com/suvaansh/CorrNet/tree/master/models">here</a></p>
+<p>TODO: Add inferencing code using trained checkpoint
+<br><br></p>
+<h2>
+<a id="user-content-reported-results" class="anchor" href="http://localhost:6419/#reported-results" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reported Results</h2>
+
+     Analysis of ChangeNet-v2 results at class level on VL-CMU-CD data set. 
+    <table><thead>
+        <tr>
+            <th>Classification</th>
+            <th>Class→ <br> Metric↓</th>
+            <th>Barrier</th>
+            <th>Bin</th>
+            <th>Construction</th>
+            <th>Other Objects</th>
+            <th>Person Bicycle</th>
+            <th>Rubbish Bin</th>
+            <th>Sign Board</th>
+            <th>Traffic Cone</th>
+            <th>Vehicle</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th rowspan="3">Pixel Based</th>
+            <td>Precision</td>
+            <td>0.74</td>
+            <td>0.76</td>
+            <td>0.90</td>
+            <td>0.67</td>
+            <td>0.84</td>
+            <td>0.56</td>
+            <td>0.78</td>
+            <td>0.67</td>
+            <td>0.92</td>            
+        </tr>
+        <tr>
+            <td>Recall</td>
+            <td>0.70</td>
+            <td>0.72</td>
+            <td>0.85</td>
+            <td>0.65</td>
+            <td>0.79</td>
+            <td>0.50</td>
+            <td>0.69</td>
+            <td>0.60</td>
+            <td>0.88</td>
+        </tr>
+        <tr>
+            <td>F_Measure</td>
+            <td>0.72</td>
+            <td>0.74</td>
+            <td>0.87</td>
+            <td>0.66</td>
+            <td>0.81</td>
+            <td>0.53</td>
+            <td>0.73</td>
+            <td>0.63</td>
+            <td>0.90</td>
+        </tr>
+        <tr>
+            <th rowspan="3">Object Based</th>
+            <td>Precision</td>
+            <td>1.00</td>
+            <td>0.97</td>
+            <td>0.88</td>
+            <td>1.00</td>
+            <td>1.00</td>
+            <td>0.96</td>
+            <td>1.00</td>
+            <td>1.00</td>
+            <td>1.00</td>            
+        </tr>
+        <tr>
+            <td>Recall</td>
+            <td>0.78</td>
+            <td>1.00</td>
+            <td>1.00</td>
+            <td>0.63</td>
+            <td>1.00</td>
+            <td>1.00</td>
+            <td>0.87</td>
+            <td>0.58</td>
+            <td>0.97</td>
+        </tr>
+        <tr>
+            <td>F_Measure</td>
+            <td>0.87</td>
+            <td>0.98</td>
+            <td>0.94</td>
+            <td>0.78</td>
+            <td>1.00</td>
+            <td>0.97</td>
+            <td>0.93</td>
+            <td>0.73</td>
+            <td>0.98</td>
+        </tr>    
+    </tbody>
+</table>
+<br>
+
+     Average results of 5-fold cross validation for binary and multi-class
+categories in VL-CMU-CD dataset. 
+    <table><thead>
+        <tr>
+            <th></th>
+            <th>Accuracy</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>f-score</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Binary</th>
+            <td>99.2</td>
+            <td>93.7</td>
+            <td>93.9</td>
+            <td>93.8</td>
+        </tr>
+        <tr>
+            <th>Multi-class</th>
+            <td>78.5</td>
+            <td>76.0</td>
+            <td>71.3</td>
+            <td>73.4</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
+     The quantitative comparison of our method with other approaches for
+FPR = 0.1 and FPR = 0.01. 
+    <table><thead>
+        <tr>
+            <th></th>
+            <th colspan="3">FPR = 0.1</th>
+            <th colspan="3">FPR = 0.01</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Metric→ <br> Methods↓</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>f-score</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>f-score</th>
+        </tr>
+        <tr>
+            <th><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8227506" rel="nofollow">Super-pixel</a></th>
+            <td>0.17</td>
+            <td>0.35</td>
+            <td>0.23</td>
+            <td>0.23</td>
+            <td>0.12</td>
+            <td>0.15</td>
+        </tr>
+        <tr>
+            <th><a href="http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf" rel="nofollow">CDnet</a></th>
+            <td>0.40</td>
+            <td>0.85</td>
+            <td>0.55</td>
+            <td>0.79</td>
+            <td>0.46</td>
+            <td>0.58</td>
+        </tr>
+        <tr>
+            <th><a href="http://openaccess.thecvf.com/content_ECCVW_2018/papers/11130/Varghese_ChangeNet_A_Deep_Learning_Architecture_for_Visual_Change_Detection_ECCVW_2018_paper.pdf" rel="nofollow">ChangeNet</a></th>
+            <td>0.79</td>
+            <td>0.80</td>
+            <td>0.79</td>
+            <td>0.80</td>
+            <td>0.79</td>
+            <td>0.79</td>
+        </tr>
+        <tr>
+            <th>ChangeNet-v2</th>
+            <td>0.93</td>
+            <td>0.93</td>
+            <td>0.93</td>
+            <td>0.90</td>
+            <td>0.94</td>
+            <td>0.93</td>         
+        </tr>
+    </tbody>
+</table>
+<br>
+<h2>
+<a id="user-content-references" class="anchor" href="http://localhost:6419/#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h2>
+<p><strong>1. Alcantarilla, P.F., Stent, S., Ros, G., Arroyo, R., Gherardi, R.</strong>, 2018. Street-
+view change detection with deconvolutional networks. Autonomous Robots 42, 1301–1322.</p>
+<p><strong>2. Babaee, M., Dinh, D.T., Rigoll, G.</strong>, 2018. A deep convolutional neural network for video sequence background subtraction. Pattern Recognition 76, 635–649.</p>
+<p><strong>3. Gressin, A., Vincent, N., Mallet, C., Paparoditis, N.</strong>, 2013. Semantic approach in image change detection, in: International Conference on Advanced Concepts for Intelligent Vision Systems, Springer. pp. 450–459.</p>
+<p><strong>4. Gubbi, J., Ramaswamy, A., Sandeep, N., Varghese, A., Balamuralidhar, P.</strong>, 2017. Visual change detection using multiscale super pixel, in: Digital Image Computing: Techniques and Applications (DICTA), 2017 International Conference on, IEEE. pp. 1–6.</p>
+<p><strong>5. Hussain, M., Chen, D., Cheng, A., Wei, H., Stanley, D.</strong>, 2013. Change detection from remotely sensed images: From pixel-based to object-based approaches. ISPRS Journal of photogrammetry and remote sensing 80, 91–106.</p>
+<p><strong>6. Sakurada, K., Okatani, T.</strong>, 2015. Change detection from a street image pair using cnn features and superpixel segmentation., in: BMVC, pp. 61–1. St-Charles, P.L., Bilodeau, G.A., Bergevin, R., 2015. Subsense: A universal
+change detection method with local adaptive sensitivity. IEEE Transactions on Image Processing 24, 359–373.</p>
+<p><strong>7. Varghese, A., Jayavardhana, G., Akshaya, R., Balamuralidhar, P.</strong>, 2018. Changenet: A deep learning architecture for visual change detection, in European Conference on Computer Vision Workshops (ECCVW), IEEE.</p>
+
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+
+  </div>
+  <div>&nbsp;</div>
+  </div><script>
+    function showCanonicalImages() {
+      var images = document.getElementsByTagName('img');
+      if (!images) {
+        return;
+      }
+      for (var index = 0; index < images.length; index++) {
+        var image = images[index];
+        if (image.getAttribute('data-canonical-src') && image.src !== image.getAttribute('data-canonical-src')) {
+          image.src = image.getAttribute('data-canonical-src');
+        }
+      }
+    }
+
+    function scrollToHash() {
+      if (location.hash && !document.querySelector(':target')) {
+        var element = document.getElementById('user-content-' + location.hash.slice(1));
+        if (element) {
+           element.scrollIntoView();
+        }
+      }
+    }
+
+    function autorefreshContent(eventSourceUrl) {
+      var initialTitle = document.title;
+      var contentElement = document.getElementById('grip-content');
+      var source = new EventSource(eventSourceUrl);
+      var isRendering = false;
+
+      source.onmessage = function(ev) {
+        var msg = JSON.parse(ev.data);
+        if (msg.updating) {
+          isRendering = true;
+          document.title = '(Rendering) ' + document.title;
+        } else {
+          isRendering = false;
+          document.title = initialTitle;
+          contentElement.innerHTML = msg.content;
+          showCanonicalImages();
+        }
+      }
+
+      source.onerror = function(e) {
+        if (e.readyState === EventSource.CLOSED && isRendering) {
+          isRendering = false;
+          document.title = initialTitle;
+        }
+      }
+    }
+
+    window.onhashchange = function() {
+      scrollToHash();
+    }
+
+    window.onload = function() {
+      scrollToHash();
+    }
+
+    showCanonicalImages();
+
+    var autorefreshUrl = document.getElementById('preview-page').getAttribute('data-autorefresh-url');
+    if (autorefreshUrl) {
+      autorefreshContent(autorefreshUrl);
+    }
+  </script>
+
+</body></html>
