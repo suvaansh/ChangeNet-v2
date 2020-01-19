@@ -5,6 +5,8 @@ Code for the Paper
 
 **[ChangeNet-v2: Semantic Change detection with Convolutional Neural Networks][6]**
 K. Ram Prabhakar, Akshaya Ramasamy, Suvaansh Bhambri, Jayavardhana Gubbi, R. Venkatesh Babu, Balamuralidhar Purushothaman
+
+**The above mentiioned paper is currently under review in Computer Vision and Image Understanding Journal**
 <br>
 
 Introduction
