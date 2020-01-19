@@ -20,7 +20,7 @@ The proposed architecture is compared with the state-of-the-art using three diff
 change detection datasets: VL-CMU-CD (Alcantarilla et al. (2018)), TSUNAMI (Sakurada and Okatani(2015)), and GSV 
 (Sakurada and Okatani (2015)) datasets.
 
-<img src="https://github.com/suvaansh/CorrNet/blob/master/Images/ChangeNet_Img1.jpg"/>
+![Qualitative Results](Images/ChangeNet_Img1.jpg?raw=true "Title")
 <br>
 
 Setup
