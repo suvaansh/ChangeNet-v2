@@ -5,7 +5,6 @@ Code for the Paper
 
 **[ChangeNet-v2: Semantic Change detection with Convolutional Neural Networks][6]**
 K. Ram Prabhakar, Akshaya Ramasamy, Suvaansh Bhambri, Jayavardhana Gubbi, R. Venkatesh Babu, Balamuralidhar Purushothaman
-<br>Link to be added[]()
 <br>
 
 Introduction
@@ -340,4 +339,4 @@ change detection method with local adaptive sensitivity. IEEE Transactions on Im
 [3]: https://pytorch.org/docs/stable/torchvision/index.html
 [4]: http://www.robesafe.com/personal/roberto.arroyo/docs/Alcantarilla16rss.pdf
 [5]: https://ghsi.github.io/proj/RSS2016.html
-[6]: Add paper link
+[6]: Changenet-v2.pdf
